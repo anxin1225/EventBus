@@ -2,6 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>EventBusX</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Ex\" />
+  </ItemGroup>
 </Project>
