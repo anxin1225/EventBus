@@ -1,7 +1,7 @@
 ﻿using System;
 namespace EventBusX
 {
-    public delegate void SubscriberMethodDelegate(Subscription sub, object obj);
+    public delegate void SubscriberMethodDelegate(object sub, object obj);
 
     /// <summary>
     /// Subscriber method.
