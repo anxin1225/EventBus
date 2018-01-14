@@ -8,8 +8,22 @@ namespace EventBusX
         private PendingPost _Head;
         private PendingPost _Tail;
 
+        private ManualResetEvent ResetEvent { get; set; } = new ManualResetEvent(false);
+
         public PendingPostQueue()
         {
+        }
+
+        public void Wait()
+        {
+            ResetEvent.WaitOne();
+        }
+
+        public void NotifyAll()
+        {
+            // 释放一个脉冲
+            ResetEvent.Set();
+            ResetEvent.Reset();
         }
 
         public void Enqueue(PendingPost pendingPost)
@@ -33,8 +47,8 @@ namespace EventBusX
                 throw new Exception("Head present, but no tail");
             }
 
-            // 找不到函数原型不知道是什么逻辑
-            //notifyAll();
+            // 安卓逻辑，通知处在等待该对象的线程的方法
+            NotifyAll();
         }
 
         public PendingPost Poll()

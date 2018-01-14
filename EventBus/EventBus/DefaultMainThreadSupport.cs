@@ -1,7 +1,7 @@
 ﻿using System;
 namespace EventBusX
 {
-    public class DefaultMainThreadSupport : MainThreadSupport
+    public class DefaultMainThreadSupport : IMainThreadSupport
     {
         private Looper _Looper;
 
@@ -10,9 +10,9 @@ namespace EventBusX
             _Looper = looper;
         }
 
-        public Poster CreatePoster(EventBus eventBus)
+        public IPoster CreatePoster(EventBus eventBus)
         {
-            return new HandlerPoster(eventBus, looper, 10);
+            return new HandlerPoster(eventBus, _Looper, 10);
         }
 
         public bool IsMainThread()

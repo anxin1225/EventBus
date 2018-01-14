@@ -1,7 +1,7 @@
 ﻿using System;
 namespace EventBusX
 {
-    public interface Poster
+    public interface IPoster
     {
         /// <summary>
         /// Enqueue an event to be posted for a particular subscription.

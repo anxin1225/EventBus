@@ -1,14 +1,14 @@
 ﻿using System;
+using System.Reflection;
+
 namespace EventBusX
 {
-    public delegate void SubscriberMethodDelegate(object sub, object obj);
-
     /// <summary>
     /// Subscriber method.
     /// </summary>
     public class SubscriberMethod
     {
-        public SubscriberMethodDelegate Method { get; private set; }
+        public MethodInfo Method { get; private set; }
 
         public ThreadMode ThreadMode { get; private set; }
 
@@ -18,7 +18,7 @@ namespace EventBusX
 
         public bool Sticky { get; private set; }
 
-        public SubscriberMethod(SubscriberMethodDelegate method, ThreadMode model, Type type, int priority, bool sticky)
+        public SubscriberMethod(MethodInfo method, Type type, ThreadMode model, int priority, bool sticky)
         {
             Method = method;
             ThreadMode = model;

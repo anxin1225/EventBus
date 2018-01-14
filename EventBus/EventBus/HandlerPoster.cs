@@ -1,7 +1,7 @@
 ﻿using System;
 namespace EventBusX
 {
-    public class HandlerPoster : Poster, IHandler
+    public class HandlerPoster : IPoster, IHandler
     {
         private PendingPostQueue _Queue;
         private bool _HandlerActive;
@@ -28,7 +28,7 @@ namespace EventBusX
                 {
                     _HandlerActive = true;
 
-                    //// 这两个函数不知道是干啥的
+                    //// Android中：将消息放到消息队列，然后等待UI线程处理的机制
                     //if (!SendMessage(ObtainMessage()))
                     //{
                     //    throw new EventBusException("Could not send handler message");
@@ -59,12 +59,23 @@ namespace EventBusX
                         }
                     }
 
-                    _EventBus.
+                    _EventBus.InvokeSubscriber(pending_post);
+                    long time_method = DateTime.Now.Ticks / 1000 - start;
+
+                    if (time_method > _MaxMillisInsideHandleMessage)
+                    {
+                        //if (!SendMessage(ObtainMessage()))
+                        //{
+                        //    throw new EventBusException("Could not send handler message");
+                        //}
+                        rescheduled = true;
+                        return;
+                    }
                 }
             }
-            catch (Exception ex)
+            finally
             {
-
+                _HandlerActive = rescheduled;
             }
         }
     }

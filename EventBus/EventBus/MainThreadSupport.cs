@@ -1,10 +1,10 @@
 ﻿using System;
 namespace EventBusX
 {
-    public interface MainThreadSupport
+    public interface IMainThreadSupport
     {
         bool IsMainThread();
 
-        Poster CreatePoster(EventBus eventBus);
+        IPoster CreatePoster(EventBus eventBus);
     }
 }
